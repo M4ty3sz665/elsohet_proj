@@ -24,8 +24,7 @@ server.post('/register', async (req, res) => {
     else{
         await dbHandler.table.create({
             username:req.body.registerUsername,
-            jelszo:req.body.registerPassword,
-            osszeg:req.body.regAmount
+            jelszo:req.body.registerPassword    
         })
         res.status(200).json({'message':'Sikeres regisztráció'})
     }
@@ -43,8 +42,8 @@ server.post('/login', async(req,res)=>{
         }
     })
     if(oneuser){
-        const tkn = JWT.sign({'username':oneuser.username, 'osszeg':oneuser.osszeg},process.env.TOKEN,{expiresIn:'1h'})
-        res.status(200).json({'token':tkn, 'message':'Sikeres login', 'osszeg':oneuser.osszeg}) 
+        const tkn = JWT.sign({'username':oneuser.username},process.env.TOKEN,{expiresIn:'1h'})
+        res.status(200).json({'token':tkn, 'message':'Sikeres login'}) 
     }
     else{
         res.status(401).json({'message':'sikertelen login'}) 
@@ -61,8 +60,7 @@ server.get('/profil', Auth(), async (req, res) => {
 
     if (user) {
         res.json({ 
-            'username': user.username, 
-            'osszeg': user.osszeg 
+            'username': user.username
         });
     } else {
         res.status(404).json({ 'message': 'Felhasználó nem található' });
