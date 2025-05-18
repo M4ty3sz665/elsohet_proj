@@ -1,5 +1,5 @@
 const express = require('express')
-const dbHandler = require('./dbHandler')
+const dbHandler = require('./dbhandler')
 require('dotenv').config()
 const server = express()
 
